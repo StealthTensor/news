@@ -170,7 +170,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     private suspend fun resolve(source: StreamSource): String = when (source) {
         is StreamSource.Hls -> source.url
-        is StreamSource.YouTubeLive -> graph.youTube.hlsUrl(source.liveUrl)
+        is StreamSource.YouTubeLive -> graph.youTube.hlsUrl(source)
     }
 
     private fun play(url: String) {

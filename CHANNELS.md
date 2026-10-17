@@ -146,6 +146,6 @@ Skipped on purpose (Telangana-focused): ETV Telangana, T News, V6 News. AP 24x7:
 ## How to add one
 
 1. Find its stream URL: open the iptv-org Telugu playlist (`https://iptv-org.github.io/iptv/languages/tel.m3u`) and search for the id above.
-2. Find its official YouTube channel id for the fallback: `yt-dlp --flat-playlist --print "%(channel)s | %(channel_id)s | %(live_status)s" "ytsearch5:<name> live"`, then confirm with `yt-dlp --print "%(channel)s %(is_live)s" https://www.youtube.com/channel/<id>/live`. Pick the one with the most subscribers.
+2. Find its official YouTube channel id for the fallback: `yt-dlp --flat-playlist --print "%(channel)s | %(channel_id)s | %(live_status)s" "ytsearch5:<name> live"`, then confirm with `yt-dlp --print "%(channel)s %(is_live)s" https://www.youtube.com/channel/<id>/live`. Pick the one with the most subscribers. Then list its current lives with the smoke test (step 4 prints them) and copy a stable part of the 24/7 feed's title into the source's `title` field; special-coverage streams share the channel and can show a slate.
 3. Add an entry to `app/src/main/assets/channels.json` (`group` picks the tab) and bump `version`.
 4. Run `LIVE_SMOKE=1 ./gradlew :app:testDebugUnitTest --tests '*LiveSourcesSmokeTest*'` and read the per-source results in the XML report.

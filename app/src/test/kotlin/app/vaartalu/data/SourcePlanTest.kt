@@ -7,7 +7,7 @@ import org.junit.Test
 
 class SourcePlanTest {
     private val hls = StreamSource.Hls("https://a.example/x.m3u8")
-    private val yt = StreamSource.YouTubeLive("https://www.youtube.com/@tv5news/live")
+    private val yt = StreamSource.YouTubeLive("https://www.youtube.com/@tv5news")
 
     @Test
     fun `hands out sources in order then runs dry`() {

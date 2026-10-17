@@ -35,21 +35,32 @@ class LiveSourcesSmokeTest {
     fun `every channel has at least one working source`() {
         val manifest = ManifestParser.parse(File("src/main/assets/channels.json").readText()).getOrThrow()
         val dead = mutableListOf<String>()
+        val staleHints = mutableListOf<String>()
 
         for (channel in manifest.channels) {
+            channel.sources.filterIsInstance<StreamSource.YouTubeLive>().forEach { source ->
+                val lives = runCatching { youTube.liveStreams(source.channelUrl).map { it.title.take(70) } }
+                println("${channel.id}: live on YouTube now (hint=${source.titleHint}) -> ${lives.getOrElse { "listing failed: ${it.message}" }}")
+            }
+            channel.sources.filterIsInstance<StreamSource.YouTubeLive>().filter { it.titleHint != null }.forEach { source ->
+                val match = runCatching { youTube.findByTitle(source) }.getOrNull()
+                println("${channel.id}: hint \"${source.titleHint}\" -> ${match?.let { "matched \"${it.title.take(70)}\"" } ?: "NO MATCH"}")
+                if (match == null) staleHints += "${channel.id} (${source.titleHint})"
+            }
             val results = channel.sources.map { source -> source to check(source) }
             results.forEach { (source, outcome) -> println("${channel.id}: ${outcome ?: "OK"} <- $source") }
             if (results.none { (_, outcome) -> outcome == null }) dead += channel.id
         }
 
         assertTrue("channels with no working source: $dead", dead.isEmpty())
+        assertTrue("YouTube title hints matching no live stream (fallback would pick /live): $staleHints", staleHints.isEmpty())
     }
 
     /** Null when the source plays, otherwise why it does not. */
     private fun check(source: StreamSource): String? = try {
         val playlistUrl = when (source) {
             is StreamSource.Hls -> source.url
-            is StreamSource.YouTubeLive -> runBlocking { youTube.hlsUrl(source.liveUrl) }
+            is StreamSource.YouTubeLive -> runBlocking { youTube.hlsUrl(source) }
         }
         val request = Request.Builder().url(playlistUrl).build()
         http.newCall(request).execute().use { res ->

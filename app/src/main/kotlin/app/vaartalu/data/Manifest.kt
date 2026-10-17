@@ -5,7 +5,14 @@ import kotlinx.serialization.json.Json
 
 sealed interface StreamSource {
     data class Hls(val url: String) : StreamSource
-    data class YouTubeLive(val liveUrl: String) : StreamSource
+    /**
+     * A channel's current live stream on YouTube. Channels often run several lives at once
+     * (the 24/7 feed plus special coverage), so [titleHint] pins the one whose title contains it;
+     * without it we take whatever YouTube shows at `/live`.
+     */
+    data class YouTubeLive(val channelUrl: String, val titleHint: String? = null) : StreamSource {
+        val liveUrl: String get() = "$channelUrl/live"
+    }
 }
 
 data class Channel(
@@ -38,7 +45,12 @@ private data class ChannelDto(
 )
 
 @Serializable
-private data class SourceDto(val type: String, val url: String? = null, val ref: String? = null)
+private data class SourceDto(
+    val type: String,
+    val url: String? = null,
+    val ref: String? = null,
+    val title: String? = null,
+)
 
 /**
  * Parses and validates the channel manifest. The remote copy is a trust boundary,
@@ -48,6 +60,7 @@ private data class SourceDto(val type: String, val url: String? = null, val ref:
 object ManifestParser {
     private const val DEFAULT_GROUP = "News"
     private const val MAX_GROUP_CHARS = 20
+    private const val MAX_TITLE_HINT_CHARS = 60
     private val json = Json { ignoreUnknownKeys = true }
     private val httpsUrl = Regex("^https://\\S+$")
     private val hexColor = Regex("^#[0-9A-Fa-f]{6}$")
@@ -77,13 +90,15 @@ object ManifestParser {
 
     private fun toSource(dto: SourceDto): StreamSource? = when (dto.type) {
         "hls" -> dto.url?.takeIf { httpsUrl.matches(it) }?.let(StreamSource::Hls)
-        "youtube" -> dto.ref?.let(::youTubeLiveUrl)?.let(StreamSource::YouTubeLive)
+        "youtube" -> dto.ref?.let(::youTubeChannelUrl)?.let { channelUrl ->
+            StreamSource.YouTubeLive(channelUrl, dto.title?.trim()?.take(MAX_TITLE_HINT_CHARS)?.takeIf { it.isNotEmpty() })
+        }
         else -> null
     }
 
-    private fun youTubeLiveUrl(ref: String): String? = when {
-        youTubeChannelId.matches(ref) -> "https://www.youtube.com/channel/$ref/live"
-        youTubeHandle.matches(ref) -> "https://www.youtube.com/$ref/live"
+    private fun youTubeChannelUrl(ref: String): String? = when {
+        youTubeChannelId.matches(ref) -> "https://www.youtube.com/channel/$ref"
+        youTubeHandle.matches(ref) -> "https://www.youtube.com/$ref"
         else -> null
     }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "channels": [
     {
       "id": "tv9",
@@ -13,7 +13,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UCPXTXMecYqnRKNdqdVOGSFg"
+          "ref": "UCPXTXMecYqnRKNdqdVOGSFg",
+          "title": "TV9 Telugu News LIVE"
         }
       ]
     },
@@ -29,7 +30,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UCumtYpCY26F6Jr3satUgMvA"
+          "ref": "UCumtYpCY26F6Jr3satUgMvA",
+          "title": "NTV Telugu News LIVE"
         }
       ]
     },
@@ -45,7 +47,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UC_2irx_BQR7RsBKmUV9fePQ"
+          "ref": "UC_2irx_BQR7RsBKmUV9fePQ",
+          "title": "ABN Telugu News LIVE"
         }
       ]
     },
@@ -61,7 +64,8 @@
         },
         {
           "type": "youtube",
-          "ref": "@tv5news"
+          "ref": "@tv5news",
+          "title": "TV5 News Telugu LIVE"
         }
       ]
     },
@@ -77,7 +81,8 @@
         },
         {
           "type": "youtube",
-          "ref": "@SakshiTV"
+          "ref": "@SakshiTV",
+          "title": "Sakshi TV Telugu News LIVE"
         }
       ]
     },
@@ -94,7 +99,8 @@
         },
         {
           "type": "youtube",
-          "ref": "@10TVNewsTelugu"
+          "ref": "@10TVNewsTelugu",
+          "title": "10TV Telugu News LIVE"
         }
       ]
     },
@@ -110,7 +116,8 @@
         },
         {
           "type": "youtube",
-          "ref": "@MahaaNews"
+          "ref": "@MahaaNews",
+          "title": "Mahaa News Live"
         }
       ]
     },
@@ -122,7 +129,8 @@
       "sources": [
         {
           "type": "youtube",
-          "ref": "@ETVAndhraPradesh"
+          "ref": "@ETVAndhraPradesh",
+          "title": "@ETVAndhraPradesh"
         }
       ]
     },
@@ -138,7 +146,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UC4gDz0qb-cJYXGmk0eeUsxw"
+          "ref": "UC4gDz0qb-cJYXGmk0eeUsxw",
+          "title": "iNews Telugu Live"
         }
       ]
     },
@@ -154,7 +163,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UCS2Y83GD-fc7qqgNW5uj41g"
+          "ref": "UCS2Y83GD-fc7qqgNW5uj41g",
+          "title": "SVBC LIVE STREAMING"
         }
       ]
     },
@@ -170,7 +180,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UCSzOZ97LOpU-_AVlGfmD4rQ"
+          "ref": "UCSzOZ97LOpU-_AVlGfmD4rQ",
+          "title": "Bhakthi TV Live"
         }
       ]
     },
@@ -186,7 +197,8 @@
         },
         {
           "type": "youtube",
-          "ref": "UCvgv0KT08YTjoiUE5SojPFA"
+          "ref": "UCvgv0KT08YTjoiUE5SojPFA",
+          "title": "Mahaa Bhakti Live"
         }
       ]
     }

@@ -9,7 +9,7 @@ Logo: the Telugu letter తె (first syllable of "Telugu") traced from Noto San
 
 Per channel, `sources` in `app/src/main/assets/channels.json` are tried in order:
 1. `hls`: direct CDN playlist (no ads).
-2. `youtube`: channel id (`UC…`) or handle (`@name`); the app finds the current live video from the channel's `/live` page and gets its HLS URL via NewPipeExtractor.
+2. `youtube`: channel id (`UC…`) or handle (`@name`) plus a `title` hint. Channels run several lives at once (the 24/7 feed plus special coverage, sometimes with a broken slate), so the app lists the channel's live streams, picks the one whose title contains the hint (case-insensitive), and gets its HLS URL via NewPipeExtractor. No match: it falls back to whatever YouTube shows at `/live`.
 
 A source that errors or buffers for 20 s is skipped. All sources failed: "No signal" screen, auto-retry every 15 s, big Reload button.
 

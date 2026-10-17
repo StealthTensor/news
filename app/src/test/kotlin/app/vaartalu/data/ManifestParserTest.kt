@@ -57,7 +57,7 @@ class ManifestParserTest {
         assertEquals(
             listOf(
                 StreamSource.Hls("https://ok.example/x.m3u8"),
-                StreamSource.YouTubeLive("https://www.youtube.com/@tv5news/live"),
+                StreamSource.YouTubeLive("https://www.youtube.com/@tv5news"),
             ),
             sources,
         )
@@ -75,9 +75,28 @@ class ManifestParserTest {
 
         assertEquals(listOf("a"), channels.map { it.id })
         assertEquals(
-            StreamSource.YouTubeLive("https://www.youtube.com/channel/$id/live"),
+            StreamSource.YouTubeLive("https://www.youtube.com/channel/$id"),
             channels.single().sources.single(),
         )
+    }
+
+    @Test
+    fun `youtube title hint is trimmed and blank hint means none`() {
+        fun hintOf(title: String): String? {
+            val src = """{"type":"youtube","ref":"@ETVAndhraPradesh","title":"$title"}"""
+            val sources = ManifestParser.parse(manifest(channel("a", src))).getOrThrow().channels.single().sources
+            return (sources.single() as StreamSource.YouTubeLive).titleHint
+        }
+
+        assertEquals("@ETVAndhraPradesh", hintOf("  @ETVAndhraPradesh "))
+        assertNull(hintOf("   "))
+    }
+
+    @Test
+    fun `youtube live url is derived from the channel url`() {
+        val live = StreamSource.YouTubeLive("https://www.youtube.com/@tv5news")
+
+        assertEquals("https://www.youtube.com/@tv5news/live", live.liveUrl)
     }
 
     @Test

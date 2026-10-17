@@ -30,4 +30,11 @@ class LiveVideoPageTest {
 
         assertNull(LiveVideoPage.videoId(html))
     }
+
+    @Test
+    fun `watch url yields its video id and other urls yield null`() {
+        assertEquals("45ciC1qVVsQ", LiveVideoPage.videoIdOfWatchUrl("https://www.youtube.com/watch?v=45ciC1qVVsQ"))
+        assertEquals("45ciC1qVVsQ", LiveVideoPage.videoIdOfWatchUrl("https://www.youtube.com/watch?x=1&v=45ciC1qVVsQ"))
+        assertNull(LiveVideoPage.videoIdOfWatchUrl("https://www.youtube.com/@ETVAndhraPradesh"))
+    }
 }
