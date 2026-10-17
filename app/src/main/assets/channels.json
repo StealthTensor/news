@@ -1,0 +1,194 @@
+{
+  "version": 4,
+  "channels": [
+    {
+      "id": "tv9",
+      "name": "TV9",
+      "group": "News",
+      "logo": "https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_TV9_TELUGU_NEWS/images/LOGO_HD/image.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9telcmjhcs/liveabr/playlist.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UCPXTXMecYqnRKNdqdVOGSFg"
+        }
+      ]
+    },
+    {
+      "id": "ntv",
+      "name": "NTV",
+      "group": "News",
+      "logo": "https://i.imgur.com/WqTIoWS.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://mumbai-edge.smartplaytv.in/NTVTelugu/index.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UCumtYpCY26F6Jr3satUgMvA"
+        }
+      ]
+    },
+    {
+      "id": "abn",
+      "name": "ABN",
+      "group": "News",
+      "logo": "https://dtil.tmsimg.com/assets/s142517_ld_h15_aa.png?lock=720x540",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://mumbai-edge.smartplaytv.in/ABNAJ/index.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UC_2irx_BQR7RsBKmUV9fePQ"
+        }
+      ]
+    },
+    {
+      "id": "tv5",
+      "name": "TV5",
+      "group": "News",
+      "logo": "https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_TV5_TELUGU/images/LOGO_HD/image.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/tv5_nim_https/110322/tv5/playlist.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "@tv5news"
+        }
+      ]
+    },
+    {
+      "id": "sakshi",
+      "name": "Sakshi",
+      "group": "News",
+      "logo": "https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_SAKSHI_TV/images/LOGO_HD/image.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://yuppmedtaorire.akamaized.net/v1/master/a0d007312bfd99c47f76b77ae26b1ccdaae76cb1/sakshi_nim_https/240122/sakshi/playlist.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "@SakshiTV"
+        }
+      ]
+    },
+    {
+      "id": "10tv",
+      "name": "10TV",
+      "group": "News",
+      "logo": "https://xstreamcp-assets-msp.streamready.in/assets/LIVETV/LIVECHANNEL/LIVETV_LIVETVCHANNEL_10TV/images/LOGO_HD/image.png",
+      "plate": "#15171C",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://mumbai-edge.smartplaytv.in/10TV/index.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "@10TVNewsTelugu"
+        }
+      ]
+    },
+    {
+      "id": "mahaa",
+      "name": "Mahaa",
+      "group": "News",
+      "logo": "https://i.imgur.com/buT76vR.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://mumbai-edge.smartplaytv.in/MahaNews/index.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "@MahaaNews"
+        }
+      ]
+    },
+    {
+      "id": "etv",
+      "name": "ETV AP",
+      "group": "News",
+      "logo": "https://i.imgur.com/pFNCRnf.png",
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "@ETVAndhraPradesh"
+        }
+      ]
+    },
+    {
+      "id": "inews",
+      "name": "iNews",
+      "group": "News",
+      "logo": "https://jiotvimages.cdn.jio.com/dare_images/images/I_News.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://cdn.pishow.tv/ott/live/411/master.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UC4gDz0qb-cJYXGmk0eeUsxw"
+        }
+      ]
+    },
+    {
+      "id": "svbc",
+      "name": "SVBC",
+      "group": "Devotional",
+      "logo": "https://dtil.tmsimg.com/assets/s143889_ld_h9_ab.png?lock=720x540",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://player.mslivestream.net/telugu/5d076e5c3d34cb8bb08e54a4bb7e223e.sdp/playlist.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UCS2Y83GD-fc7qqgNW5uj41g"
+        }
+      ]
+    },
+    {
+      "id": "bhakthi",
+      "name": "Bhakthi TV",
+      "group": "Devotional",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/6/61/Bhakthi_TV_logo.jpg",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://cdn.pishow.tv/ott/live/397/master.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UCSzOZ97LOpU-_AVlGfmD4rQ"
+        }
+      ]
+    },
+    {
+      "id": "mahaa-bhakti",
+      "name": "Mahaa Bhakti",
+      "group": "Devotional",
+      "logo": "https://yt3.googleusercontent.com/OWECRvCVJh-dXU2MTRZhMRIDvFvcWan0YMoWWfXsM5_WEHobQy2QoHQbGr7AZUXzMOByTMAXbg=s900-c-k-c0x00ffffff-no-rj",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://mumbai-edge.smartplaytv.in/MahaBhakthi/index.m3u8"
+        },
+        {
+          "type": "youtube",
+          "ref": "UCvgv0KT08YTjoiUE5SojPFA"
+        }
+      ]
+    }
+  ]
+}
