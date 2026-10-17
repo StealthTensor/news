@@ -21,7 +21,7 @@ More channels we could add, with a liveness check: see [CHANNELS.md](CHANNELS.md
 
 ## Channel list updates
 
-`manifestUrl` in `gradle.properties` (blank = bundled list only). When set, the app fetches that raw JSON on every start, validates it, caches it, and uses it if its `version` is >= the one it has. Bump `version` on every edit. Invalid entries (non-https, unknown source type) are dropped.
+`manifestUrl` in `gradle.properties` points at this repo's own `channels.json` on GitHub (blank = bundled list only), so editing and pushing that file updates every installed phone. The app fetches that raw JSON each time it opens, validates it, caches it, and uses it if its `version` is >= the one it has. Bump `version` on every edit. Invalid entries (non-https, unknown source type) are dropped.
 
 ## Commands
 
