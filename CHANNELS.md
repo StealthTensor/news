@@ -4,7 +4,7 @@ Telugu channels we **could** add. Nothing here is in the app yet.
 
 Source: the iptv-org Telugu playlist, checked 2026-10-17 from an Indian IP. **up** = the HLS playlist answered with `#EXTM3U`. It does not prove the picture plays or is ad-free, and the YouTube fallback was not checked. Third-party restreams can vanish any day. 56 of 70 were up.
 
-Already in the app: TV9, NTV, ABN, TV5, Sakshi, 10TV, Mahaa, ETV AP, iNews (News tab); SVBC, Bhakthi TV, Mahaa Bhakti (Devotional tab).
+Already in the app: TV9, NTV, ABN, TV5, Sakshi, 10TV, Mahaa, ETV AP, iNews (News tab); SVBC, Bhakthi TV, Mahaa Bhakti (Devotional tab); DD Sports, Star Sports 2, Eurosport, Kabaddi 24x7 plus match-day YouTube lives from Star Sports Telugu, Sony Sports, ICC, Pro Kabaddi, Olympics, FIFA, Cricbuzz (Sports tab, 2026-10-25).
 
 Skipped on purpose (Telangana-focused): ETV Telangana, T News, V6 News. AP 24x7: YouTube channel exists but no live stream and no CDN source found.
 
@@ -112,6 +112,8 @@ Skipped on purpose (Telangana-focused): ETV Telangana, T News, V6 News. AP 24x7:
 | Sony Yay! | `SonyYay` | down |
 
 ## Sports (2 up / 3)
+
+Sony Sports Ten 1/2, Star Sports Select 1/2 and Star Sports 2 Hindi were tested 2026-10-25 and left out: Select 1/2 and Star Sports 2 Hindi gave no video; Ten 1/2 play but only over plain `http` from a bare IP, which the app blocks.
 
 | Channel | iptv-org id | Playlist |
 |---|---|---|

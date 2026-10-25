@@ -41,6 +41,13 @@ class YouTubeLiveResolver(private val http: OkHttpClient) {
         hls
     }
 
+    /** Whether any YouTube source of [channel] is streaming right now; throws if YouTube cannot be asked. */
+    suspend fun isLive(channel: Channel): Boolean = withContext(Dispatchers.IO) {
+        channel.sources.filterIsInstance<StreamSource.YouTubeLive>().any { source ->
+            if (source.titleHint != null) findByTitle(source) != null else liveStreams(source.channelUrl).isNotEmpty()
+        }
+    }
+
     /** The live stream whose title contains the source's hint, or null (blocking network call). */
     fun findByTitle(source: StreamSource.YouTubeLive): LiveListing? {
         val hint = source.titleHint ?: return null

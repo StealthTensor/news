@@ -15,7 +15,11 @@ A source that errors or buffers for 20 s is skipped. All sources failed: "No sig
 
 ## Channel fields
 
-`id`, `name` (English, shown in the UI; the app is English-only), `group` (the tab: "News" or "Devotional"; missing = "News"; tabs appear when there is more than one group), `logo` (https URL), optional `plate` (`#RRGGBB` behind the logo, default white; 10TV needs a dark one because its "10" is white), `sources`.
+`id`, `name` (English, shown in the UI; the app is English-only), `group` (the tab: "News", "Devotional" or "Sports"; missing = "News"; tabs appear when there is more than one group), `logo` (https URL), optional `plate` (`#RRGGBB` behind the logo, default white; 10TV needs a dark one because its "10" is white), optional `liveOnly` (see below), `sources`.
+
+`liveOnly: true` is for event channels that only stream on match days (ICC, FIFA, Pro Kabaddi…). The app asks YouTube which of them are live when it opens and every 3 minutes after, and lists only those. The one being watched stays listed until he switches away, and a tab with nothing live disappears. A failed check keeps the last answer. Use YouTube sources only; keep the `title` hint off, so it plays whatever `/live` shows.
+
+Sports HLS sources are third-party restreams of pay channels (Star Sports 2, Eurosport) and can die any day; only `https` ones work, since the app blocks cleartext.
 
 More channels we could add, with a liveness check: see [CHANNELS.md](CHANNELS.md).
 

@@ -17,8 +17,12 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import app.vaartalu.VaartaluApp
 import app.vaartalu.data.Channel
 import app.vaartalu.data.StreamSource
+import app.vaartalu.data.visibleChannels
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +39,9 @@ private const val STALL_TIMEOUT_MS = 20_000L
 
 /** After every source of a channel failed, start over this often until one works. */
 private const val RETRY_DELAY_MS = 15_000L
+
+/** How often the event channels' live status is re-checked while the app is open. */
+private const val LIVE_PROBE_INTERVAL_MS = 3 * 60_000L
 
 enum class PlaybackStatus { Loading, Playing, Failed }
 
@@ -69,7 +76,12 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private var attempt: Job? = null
     private var watchdog: Job? = null
     private var retry: Job? = null
+    private var liveProbe: Job? = null
     private var inBackground = false
+
+    // The manifest's full list; HomeState.channels is the part of it worth showing right now.
+    private var allChannels: List<Channel> = emptyList()
+    private var liveNow: Set<String> = emptySet()
 
     private val listener = object : Player.Listener {
         override fun onPlaybackStateChanged(playbackState: Int) {
@@ -108,6 +120,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     fun select(channel: Channel) {
         prefs.edit().putString(PREF_LAST_CHANNEL, channel.id).apply()
         _state.update { it.copy(selectedId = channel.id) }
+        publishChannels()
         start(channel)
     }
 
@@ -118,6 +131,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun onForeground() {
         viewModelScope.launch { graph.manifest.refresh() }
+        startLiveProbe()
         if (inBackground) {
             inBackground = false
             reload()
@@ -126,19 +140,57 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun onBackground() {
         inBackground = true
+        liveProbe?.cancel()
         cancelJobs()
         player.stop()
         player.clearMediaItems()
     }
 
     private fun onManifest(channels: List<Channel>) {
+        allChannels = channels
+        publishChannels()
+        if (!inBackground) startLiveProbe()
+        val shown = _state.value.channels
         val current = _state.value.selectedId
-        val keep = channels.firstOrNull { it.id == current }
-        _state.update { it.copy(channels = channels) }
-        if (keep != null) return
+        if (shown.any { it.id == current }) return
         val last = prefs.getString(PREF_LAST_CHANNEL, null)
-        val first = channels.firstOrNull { it.id == last } ?: channels.firstOrNull() ?: return
+        val first = shown.firstOrNull { it.id == last } ?: shown.firstOrNull() ?: return
         select(first)
+    }
+
+    private fun publishChannels() {
+        _state.update { it.copy(channels = allChannels.visibleChannels(liveNow, it.selectedId)) }
+    }
+
+    /** Re-asks YouTube which event channels are live now, then again every [LIVE_PROBE_INTERVAL_MS]. */
+    private fun startLiveProbe() {
+        liveProbe?.cancel()
+        if (allChannels.none { it.liveOnly }) return
+        liveProbe = viewModelScope.launch {
+            while (true) {
+                liveNow = probeLive()
+                publishChannels()
+                delay(LIVE_PROBE_INTERVAL_MS)
+            }
+        }
+    }
+
+    private suspend fun probeLive(): Set<String> = coroutineScope {
+        allChannels.filter { it.liveOnly }
+            .map { channel -> async { channel to isLive(channel) } }
+            .awaitAll()
+            .filter { (_, live) -> live }
+            .mapTo(mutableSetOf()) { (channel, _) -> channel.id }
+    }
+
+    /** A failed probe keeps the last known answer rather than hiding a channel that may be fine. */
+    private suspend fun isLive(channel: Channel): Boolean = try {
+        graph.youTube.isLive(channel)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Log.w(TAG, "live check failed for ${channel.id}", e)
+        channel.id in liveNow
     }
 
     private fun start(channel: Channel) {

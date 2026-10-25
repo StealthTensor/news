@@ -22,11 +22,26 @@ class ManifestParserTest {
 
         val manifest = ManifestParser.parse(text).getOrThrow()
 
-        assertEquals(12, manifest.channels.size)
-        assertEquals(listOf("News", "Devotional"), manifest.channels.groups)
+        assertEquals(23, manifest.channels.size)
+        assertEquals(listOf("News", "Devotional", "Sports"), manifest.channels.groups)
         assertEquals(9, manifest.channels.count { it.group == "News" })
+        assertEquals(4, manifest.channels.count { it.group == "Sports" && !it.liveOnly })
+        assertTrue(manifest.channels.filter { it.liveOnly }.all { ch -> ch.sources.all { it is StreamSource.YouTubeLive } })
         assertTrue(manifest.channels.all { it.sources.isNotEmpty() })
         assertTrue(manifest.channels.all { it.logo?.startsWith("https://") != false })
+    }
+
+    @Test
+    fun `liveOnly is false unless the manifest sets it`() {
+        val hls = source("hls", "url", "https://ok.example/x.m3u8")
+        val text = manifest(
+            channel("a", hls),
+            """{"id":"b","name":"B","liveOnly":true,"sources":[$hls]}""",
+        )
+
+        val flags = ManifestParser.parse(text).getOrThrow().channels.associate { it.id to it.liveOnly }
+
+        assertEquals(mapOf("a" to false, "b" to true), flags)
     }
 
     @Test

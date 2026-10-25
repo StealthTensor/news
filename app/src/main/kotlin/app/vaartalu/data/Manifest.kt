@@ -24,12 +24,21 @@ data class Channel(
     /** Opaque ARGB behind the logo; null = white. Needed for logos drawn in white (10TV). */
     val plateArgb: Int?,
     val sources: List<StreamSource>,
+    /** Event channel (match-day YouTube lives): listed only while one of its sources is live. */
+    val liveOnly: Boolean = false,
 )
 
 data class Manifest(val version: Int, val channels: List<Channel>)
 
 /** Tab names in the order they first appear in the manifest. */
 val List<Channel>.groups: List<String> get() = map { it.group }.distinct()
+
+/**
+ * What the UI lists: always-on channels, plus [Channel.liveOnly] ones that are in [liveNow].
+ * [keepId] (the channel being watched) stays listed so a stream ending never yanks it from under him.
+ */
+fun List<Channel>.visibleChannels(liveNow: Set<String>, keepId: String?): List<Channel> =
+    filter { !it.liveOnly || it.id in liveNow || it.id == keepId }
 
 @Serializable
 private data class ManifestDto(val version: Int, val channels: List<ChannelDto>)
@@ -41,6 +50,7 @@ private data class ChannelDto(
     val group: String? = null,
     val logo: String? = null,
     val plate: String? = null,
+    val liveOnly: Boolean = false,
     val sources: List<SourceDto> = emptyList(),
 )
 
@@ -85,6 +95,7 @@ object ManifestParser {
             logo = dto.logo?.takeIf { httpsUrl.matches(it) },
             plateArgb = dto.plate?.takeIf { hexColor.matches(it) }?.let { OPAQUE or it.substring(1).toInt(16) },
             sources = sources,
+            liveOnly = dto.liveOnly,
         )
     }
 

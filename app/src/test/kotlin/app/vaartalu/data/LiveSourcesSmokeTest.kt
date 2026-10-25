@@ -38,6 +38,17 @@ class LiveSourcesSmokeTest {
         val staleHints = mutableListOf<String>()
 
         for (channel in manifest.channels) {
+            if (channel.liveOnly) {
+                // Hidden in the app while offline, so offline is fine; when live it must play.
+                val live = runCatching { runBlocking { youTube.isLive(channel) } }
+                println("${channel.id}: liveOnly, live now -> ${live.getOrElse { "probe failed: ${it.message}" }}")
+                if (live.getOrNull() == true) {
+                    val outcomes = channel.sources.map { source -> source to check(source) }
+                    outcomes.forEach { (source, outcome) -> println("${channel.id}: ${outcome ?: "OK"} <- $source") }
+                    if (outcomes.none { (_, outcome) -> outcome == null }) dead += channel.id
+                }
+                continue
+            }
             channel.sources.filterIsInstance<StreamSource.YouTubeLive>().forEach { source ->
                 val lives = runCatching { youTube.liveStreams(source.channelUrl).map { it.title.take(70) } }
                 println("${channel.id}: live on YouTube now (hint=${source.titleHint}) -> ${lives.getOrElse { "listing failed: ${it.message}" }}")

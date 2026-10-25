@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "channels": [
     {
       "id": "tv9",
@@ -199,6 +199,149 @@
           "type": "youtube",
           "ref": "UCvgv0KT08YTjoiUE5SojPFA",
           "title": "Mahaa Bhakti Live"
+        }
+      ]
+    },
+    {
+      "id": "dd-sports",
+      "name": "DD Sports",
+      "group": "Sports",
+      "logo": "https://dtil.tmsimg.com/assets/s158255_ld_h15_aa.png?lock=720x540",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://cdn.pishow.tv/ott/live/1161/master.m3u8"
+        },
+        {
+          "type": "hls",
+          "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8"
+        }
+      ]
+    },
+    {
+      "id": "star-sports-2",
+      "name": "Star Sports 2",
+      "group": "Sports",
+      "logo": "https://i.imgur.com/m7DvvqF.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://real-vk.proxy.nellaiiptv.com/SDMEDIA/index.m3u8"
+        }
+      ]
+    },
+    {
+      "id": "eurosport",
+      "name": "Eurosport",
+      "group": "Sports",
+      "logo": "https://dtil.tmsimg.com/assets/GNLZZGG002E9LQS.png?lock=720x540",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://drk6xq0vhn.gpcdn.net/live/euro_sports_hd_abr/index.m3u8"
+        }
+      ]
+    },
+    {
+      "id": "kabaddi",
+      "name": "Kabaddi 24x7",
+      "group": "Sports",
+      "logo": "https://papaji.freetvindia.com/media/kabaddi_24x7.png",
+      "sources": [
+        {
+          "type": "hls",
+          "url": "https://samitaorigin.tangotv.in/KABADDI24X7/SAMITAORIGIN/index.m3u8"
+        }
+      ]
+    },
+    {
+      "id": "star-sports-telugu",
+      "name": "Star Sports",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/ZOeKjBkojMgpxc2ngL4UqsgPRBHpByclAmUHYJmEhcu7vjIqoQMWopx8hunzIOfhngQH07hP=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCRSgG6dLT2x2WuIy2AmJOgA"
+        }
+      ]
+    },
+    {
+      "id": "sony-sports",
+      "name": "Sony Sports",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/2KpL4E7BBvDnywz0BLJXu0cMG_bqiXv6cMQ_dL4MNRTrQYIB6ydv8Tp1PnEvmx6Sg6d4yp7P=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UC_WKb6N9iTGc77hxwXLDrbA"
+        }
+      ]
+    },
+    {
+      "id": "icc",
+      "name": "ICC",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/78fjpGo2Fn7MJOhlLyqamRQaNlMZBP_ZYJiFh5BRRLa2qHi-IlANnhiY7pYEYc_mcFfP7iCxAg=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCt2JXOLNxqry7B_4rRZME3Q"
+        }
+      ]
+    },
+    {
+      "id": "pro-kabaddi",
+      "name": "Pro Kabaddi",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/jrEajPu1cshdXJPsjARzaEOlW4BUhWb4e3x9uV2-UTXFCxDEheiOHdNkgPWxOlctEjDwzOdMAw=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCL7l6c635bbxWkH7Gofbb-A"
+        }
+      ]
+    },
+    {
+      "id": "olympics",
+      "name": "Olympics",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/ytc/AIdro_mgqNPYKqnE7FG3Pk1zbi0hpKihVPbWSk-Rfsbr0ki0bFPK=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCTl3QQTvqHFjurroKxexy2Q"
+        }
+      ]
+    },
+    {
+      "id": "fifa",
+      "name": "FIFA",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/9UB1blxIJIz-OQmtHTsGEvYnMSYU3i77CRrYyD4EIA34kxseG0z5BYebP_P7KkWniL1W-7ZN=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCpcTrCXblq78GZrTUTLWeBw"
+        }
+      ]
+    },
+    {
+      "id": "cricbuzz",
+      "name": "Cricbuzz",
+      "group": "Sports",
+      "logo": "https://yt3.googleusercontent.com/MtxkLD_KAf2NEzvGYvmnt824vNvnfaRUgIVmatLMBmKdZ57kREVel6ROhXgCcQo1-Zu0pYtlIA=s200",
+      "liveOnly": true,
+      "sources": [
+        {
+          "type": "youtube",
+          "ref": "UCSRQXk5yErn4e14vN76upOw"
         }
       ]
     }
